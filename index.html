@@ -83,13 +83,13 @@
 
     // Validation
     if (isNaN(totalLand) || isNaN(personPortion) || totalLand <= 0 || personPortion <= 0) {
-      alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তিগত অংশ 0 এর বেশি হতে হবে!";
+      alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তির জমি 0 এর বেশি হতে হবে!";
       alertBox.style.display = "block";
       return;
     }
 
     if (personPortion > totalLand) {
-      alertBox.innerHTML = "⚠️ ব্যক্তিগত অংশ মোট জমির চেয়ে বেশি হতে পারবে না!";
+      alertBox.innerHTML = "⚠️ ব্যক্তির জমি মোট জমির চেয়ে বেশি হতে পারবে না!";
       alertBox.style.display = "block";
       return;
     }
