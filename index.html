@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Land Ratio Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #006a4e;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004c36;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #006a4e;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Land Ratio Calculator</h2>
+  
+  <label>মোট জমির পরিমাণ:</label>
+  <input type="number" id="totalLand" placeholder="মোট জমি দিন">
+
+  <label>ব্যক্তিগত অংশ:</label>
+  <input type="number" id="personPortion" placeholder="ব্যক্তিগত অংশ দিন">
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  function calculate() {
+    let totalLand = parseFloat(document.getElementById("totalLand").value);
+    let personPortion = parseFloat(document.getElementById("personPortion").value);
+
+    if (isNaN(totalLand) || isNaN(personPortion) || totalLand === 0) {
+      document.getElementById("result").innerHTML = "⚠️ সঠিক সংখ্যা দিন!";
+      return;
+    }
+
+    let result = (personPortion / totalLand) * 1000;
+    document.getElementById("result").innerHTML = "📌 ফলাফল: " + result.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
