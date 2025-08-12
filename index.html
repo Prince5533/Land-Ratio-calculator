@@ -6,7 +6,6 @@
   <title>Land Ratio Calculator</title>
   <style>
     body {
-      <img class="logo" src="Gemini_Generated_Image_79smux79smux79sm.png" alt="Logo">
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
       display: flex;
@@ -15,6 +14,16 @@
       height: 100vh;
       margin: 0;
       flex-direction: column;
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 120px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     .container {
       background: white;
@@ -28,8 +37,15 @@
       color: #006a4e;
       margin-bottom: 15px;
     }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+      text-align: left;
+    }
     input {
-      width: 90%;
+      width: 95%;
       padding: 10px;
       margin: 8px 0;
       border: 1px solid #ccc;
@@ -61,18 +77,11 @@
       padding: 4px 8px;
       border-radius: 5px;
     }
-    .logo {
-    position: absolute;
-    top: 20px;       /* উপরের থেকে দূরত্ব */
-    left: 20px;      /* বাম দিক থেকে দূরত্ব */
-    width: 120px;    /* লোগোর সাইজ */
-    height: auto;
-    border-radius: 10px; /* কোণ গুলো গোল করার জন্য */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* সুন্দর ছায়া */
-}
   </style>
 </head>
 <body>
+
+<img class="logo" src="Gemini_Generated_Image_79smux79smux79sm.png" alt="Logo">
 
 <div class="container">
   <h2>Land Ratio Calculator</h2>
@@ -105,7 +114,6 @@
     resultEl.innerHTML = "";
     alertBox.style.display = "none";
 
-    // Validation
     if (isNaN(totalLand) || isNaN(personPortion) || totalLand <= 0 || personPortion <= 0) {
       alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তির জমি 0 এর বেশি হতে হবে!";
       alertBox.style.display = "block";
@@ -118,7 +126,6 @@
       return;
     }
 
-    // Calculation
     let result = (personPortion / totalLand) * 1000;
     resultEl.innerHTML = "ফলাফল: " + result.toFixed(2);
   }
