@@ -11,53 +11,63 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       flex-direction: column;
-      position: relative;
+      padding: 15px;
     }
+
     .logo {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 170px;
+      position: relative;
+      display: block;
+      width: 120px;
+      max-width: 40vw;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin-bottom: 15px;
     }
+
     .container {
       background: white;
       padding: 25px;
       border-radius: 15px;
-      width: 320px;
+      width: 100%;
+      max-width: 350px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       text-align: center;
     }
+
     h2 {
       color: #006a4e;
       margin-bottom: 15px;
+      font-size: 1.4rem;
     }
+
     label {
       display: block;
       margin-top: 10px;
-      font-weight: bold;
-      color: #333;
+      font-size: 0.9rem;
       text-align: left;
     }
+
     input {
-      width: 95%;
+      width: 100%;
       padding: 10px;
-      margin: 8px 0;
+      margin: 6px 0;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
+      box-sizing: border-box;
     }
+
     #result {
       margin-top: 15px;
       font-weight: bold;
       font-size: 18px;
       color: #006a4e;
     }
+
     .alert {
       color: white;
       background: red;
@@ -66,73 +76,85 @@
       border-radius: 8px;
       display: none;
       font-weight: bold;
+      font-size: 0.9rem;
     }
+
     .footer {
-      position: fixed;
-      right: 10px;
-      bottom: 10px;
+      margin-top: 15px;
       font-size: 12px;
       color: #333;
       background: rgba(255,255,255,0.7);
       padding: 4px 8px;
       border-radius: 5px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.2rem;
+      }
+      input {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
 
-<img class="logo" src="Gemini_Generated_Image_79smux79smux79sm.png" alt="Logo">
+  <img class="logo" src="Gemini_Generated_Image_79smux79smux79sm.png" alt="Logo">
 
-<div class="container">
-  <h2>Land Ratio Calculator</h2>
-  
-  <label>মোট জমির পরিমাণ:</label>
-  <input type="number" id="totalLand" placeholder="মোট জমির পরিমান দিন (শতক)">
+  <div class="container">
+    <h2>Land Ratio Calculator</h2>
 
-  <label>ব্যক্তির জমির পরিমাণ:</label>
-  <input type="number" id="personPortion" placeholder="ব্যক্তিগত জমির পরিমাণ দিন (শতক)">
+    <label>মোট জমির পরিমাণ:</label>
+    <input type="number" id="totalLand" placeholder="মোট জমির পরিমান দিন (শতক)">
 
-  <div class="alert" id="alertBox">⚠️ ভুল ইনপুট! অনুগ্রহ করে সঠিক সংখ্যা দিন।</div>
-  
-  <div id="result"></div>
-</div>
+    <label>ব্যক্তির জমির পরিমাণ:</label>
+    <input type="number" id="personPortion" placeholder="ব্যক্তিগত জমির পরিমাণ দিন (শতক)">
 
-<footer class="footer">
-  © Abdulla AL Fahad Prince. Member Of GMT 
-</footer>
+    <div class="alert" id="alertBox">⚠️ ভুল ইনপুট! অনুগ্রহ করে সঠিক সংখ্যা দিন।</div>
 
-<script>
-  const totalLandEl = document.getElementById("totalLand");
-  const personPortionEl = document.getElementById("personPortion");
-  const resultEl = document.getElementById("result");
-  const alertBox = document.getElementById("alertBox");
+    <div id="result"></div>
+  </div>
 
-  function calculate() {
-    let totalLand = parseFloat(totalLandEl.value);
-    let personPortion = parseFloat(personPortionEl.value);
+  <footer class="footer">
+    © Abdulla AL Fahad Prince. Member Of GMT 
+  </footer>
 
-    resultEl.innerHTML = "";
-    alertBox.style.display = "none";
+  <script>
+    const totalLandEl = document.getElementById("totalLand");
+    const personPortionEl = document.getElementById("personPortion");
+    const resultEl = document.getElementById("result");
+    const alertBox = document.getElementById("alertBox");
 
-    if (isNaN(totalLand) || isNaN(personPortion) || totalLand <= 0 || personPortion <= 0) {
-      alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তির জমি 0 এর বেশি হতে হবে!";
-      alertBox.style.display = "block";
-      return;
+    function calculate() {
+      let totalLand = parseFloat(totalLandEl.value);
+      let personPortion = parseFloat(personPortionEl.value);
+
+      resultEl.innerHTML = "";
+      alertBox.style.display = "none";
+
+      // Validation
+      if (isNaN(totalLand) || isNaN(personPortion) || totalLand <= 0 || personPortion <= 0) {
+        alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তির জমি 0 এর বেশি হতে হবে!";
+        alertBox.style.display = "block";
+        return;
+      }
+
+      if (personPortion > totalLand) {
+        alertBox.innerHTML = "⚠️ ব্যক্তির জমি মোট জমির চেয়ে বেশি হতে পারবে না!";
+        alertBox.style.display = "block";
+        return;
+      }
+
+      // Calculation
+      let result = (personPortion / totalLand) * 1000;
+      resultEl.innerHTML = "ফলাফল: " + result.toFixed(2);
     }
 
-    if (personPortion > totalLand) {
-      alertBox.innerHTML = "⚠️ ব্যক্তির জমি মোট জমির চেয়ে বেশি হতে পারবে না!";
-      alertBox.style.display = "block";
-      return;
-    }
-
-    let result = (personPortion / totalLand) * 1000;
-    resultEl.innerHTML = "ফলাফল: " + result.toFixed(2);
-  }
-
-  totalLandEl.addEventListener("input", calculate);
-  personPortionEl.addEventListener("input", calculate);
-</script>
+    totalLandEl.addEventListener("input", calculate);
+    personPortionEl.addEventListener("input", calculate);
+  </script>
 
 </body>
 </html>
