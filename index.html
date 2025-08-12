@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -8,41 +7,47 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      text-align: center;
-      padding: 50px;
+      background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .container {
       background: white;
       padding: 25px;
-      border-radius: 10px;
-      width: 300px;
-      margin: auto;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      width: 320px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h2 {
+      color: #006a4e;
+      margin-bottom: 15px;
     }
     input {
       width: 90%;
       padding: 10px;
-      margin: 10px 0;
+      margin: 8px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background: #006a4e;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #004c36;
+      border-radius: 8px;
+      font-size: 16px;
     }
     #result {
       margin-top: 15px;
       font-weight: bold;
       font-size: 18px;
       color: #006a4e;
+    }
+    .alert {
+      color: white;
+      background: red;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -52,29 +57,51 @@
   <h2>Land Ratio Calculator</h2>
   
   <label>মোট জমির পরিমাণ:</label>
-  <input type="number" id="totalLand" placeholder="মোট জমি দিন (শতক)">
+  <input type="number" id="totalLand" placeholder="মোট জমির পরিমান দিন (শতক)">
 
-  <label>ব্যক্তিগত অংশ:</label>
-  <input type="number" id="personPortion" placeholder="ব্যক্তির জমির পরিমান (শতক)">
+  <label>ব্যক্তির জমির পরিমাণ:</label>
+  <input type="number" id="personPortion" placeholder="ব্যক্তিগত জমির পরিমাণ দিন (শতক)">
 
-  <button onclick="calculate()">Calculate</button>
-
+  <div class="alert" id="alertBox">⚠️ ভুল ইনপুট! অনুগ্রহ করে সঠিক সংখ্যা দিন।</div>
+  
   <div id="result"></div>
 </div>
 
 <script>
-  function calculate() {
-    let totalLand = parseFloat(document.getElementById("totalLand").value);
-    let personPortion = parseFloat(document.getElementById("personPortion").value);
+  const totalLandEl = document.getElementById("totalLand");
+  const personPortionEl = document.getElementById("personPortion");
+  const resultEl = document.getElementById("result");
+  const alertBox = document.getElementById("alertBox");
 
-    if (isNaN(totalLand) || isNaN(personPortion) || totalLand === 0) {
-      document.getElementById("result").innerHTML = "⚠️ সঠিক সংখ্যা দিন!";
+  function calculate() {
+    let totalLand = parseFloat(totalLandEl.value);
+    let personPortion = parseFloat(personPortionEl.value);
+
+    // Reset messages
+    resultEl.innerHTML = "";
+    alertBox.style.display = "none";
+
+    // Validation
+    if (isNaN(totalLand) || isNaN(personPortion) || totalLand <= 0 || personPortion <= 0) {
+      alertBox.innerHTML = "⚠️ মোট জমি ও ব্যক্তিগত অংশ 0 এর বেশি হতে হবে!";
+      alertBox.style.display = "block";
       return;
     }
 
+    if (personPortion > totalLand) {
+      alertBox.innerHTML = "⚠️ ব্যক্তিগত অংশ মোট জমির চেয়ে বেশি হতে পারবে না!";
+      alertBox.style.display = "block";
+      return;
+    }
+
+    // Calculation
     let result = (personPortion / totalLand) * 1000;
-    document.getElementById("result").innerHTML = "📌 ফলাফল: " + result.toFixed(2);
+    resultEl.innerHTML = " ফলাফল: " + result.toFixed(2);
   }
+
+  // Auto update on input
+  totalLandEl.addEventListener("input", calculate);
+  personPortionEl.addEventListener("input", calculate);
 </script>
 
 </body>
