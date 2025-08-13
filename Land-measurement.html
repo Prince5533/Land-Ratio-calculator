@@ -16,6 +16,17 @@
       flex-direction: column;
       padding: 15px;
     }
+     footer {
+  position: fixed;
+  bottom: 10px; /* এটি ফুটারকে নিচের দিক থেকে 10 পিক্সেল উপরে রাখবে */
+  right: 10px; /* এটি ফুটারকে ডান দিক থেকে 10 পিক্সেল দূরে রাখবে */
+  font-size: 12px;
+  color: #333;
+  background: rgba(255,255,255,0.7);
+  padding: 4px 8px;
+  border-radius: 5px;
+  text-align: center;
+     }
     .container {
       background: white;
       padding: 25px;
@@ -78,6 +89,9 @@
 
     <div id="result"></div>
   </div>
+    <footer class="footer">
+    © Abdulla AL Fahad Prince. Member Of GMT 
+  </footer>
 
   <script>
     const totalLandEl = document.getElementById("totalLand");
