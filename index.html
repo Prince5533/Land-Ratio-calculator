@@ -178,17 +178,18 @@
       color: #333;
     }
 .chatbot {
-    width: 320px;
-    height: 450px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    display: none;
-    flex-direction: column;
-    background: #fff;
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 320px;
+  height: 450px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  position: fixed;
+  bottom: 130px; /* 🔼 এখানে 70px এর পরিবর্তে 130px */
+  right: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 999; /* box কে উপরে রাখলেও toggle এর নিচে থাকবে */
   }
   .chat-header {
     background: #2e7d32;
@@ -254,17 +255,18 @@
     border-radius: 0 0 10px 0;
   }
   .chat-toggle {
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    background: #2e7d32;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-  }
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 1000; /* 🔼 আইকন সব সময় উপরে দেখা যাবে */
+}
   </style>
 </head>
 <body>
