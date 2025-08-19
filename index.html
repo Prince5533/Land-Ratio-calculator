@@ -75,7 +75,6 @@
       flex-direction: column;
       padding: 15px;
     }
-
     .logo {
       position: relative;
       display: block;
@@ -178,6 +177,94 @@
       font-size: 14px;
       color: #333;
     }
+.chatbot {
+    width: 320px;
+    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .chat-header {
+    background: #2e7d32;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    font-size: 14px;
+  }
+  .msg {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 6px;
+    max-width: 80%;
+  }
+  .bot {
+    background: #e1f5fe;
+    text-align: left;
+  }
+  .user {
+    background: #c8e6c9;
+    text-align: right;
+    margin-left: auto;
+  }
+  .faq-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .faq-btn:hover {
+    background: #e0f2f1;
+  }
+  .chat-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+  .chat-input input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 0 0 0 10px;
+    outline: none;
+  }
+  .chat-input button {
+    border: none;
+    background: #2e7d32;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 0 0 10px 0;
+  }
+  .chat-toggle {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: #2e7d32;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+  }
   </style>
 </head>
 <body>
@@ -208,18 +295,27 @@
     জমির অংশ থেকে পরিমাণ নির্ণয়
   </a>
   </div>
-  <!-- ✅ FAQ Section -->
-  <div class="faq">
-    <h2>❓ প্রায়শই জিজ্ঞাসিত প্রশ্ন</h2>
-    <h3>Land Ratio Calculator কীভাবে কাজ করে?</h3>
-    <p>আপনি মোট জমির পরিমাণ এবং ব্যক্তিগত জমির পরিমান দিলে এটি স্বয়ংক্রিয়ভাবে আপনার অংশ নির্ণয় করে।</p>
-
-    <h3>এটি কি নামজারির কাজে ব্যবহারযোগ্য?</h3>
-    <p>হ্যাঁ, নামজারি আবেদন করার আগে এবং আবেদন ফর্ম পূরণ করার সময় জমির অংশ বা ভাগ নির্ণয়ে ব্যবহার করা যাবে।</p>
-
-    <h3>এটি কি মোবাইলে ব্যবহার করা যাবে?</h3>
-    <p>হ্যাঁ, এটি মোবাইল ফ্রেন্ডলি এবং যেকোনো ফোনে ব্যবহার করা যায়।</p>
+ <!-- ✅ Chatbot -->
+<button class="chat-toggle">💬</button>
+<div class="chatbot" id="chatbot">
+  <div class="chat-header">Conversation with Chatbot</div>
+  <div class="chat-body" id="chatBody">
+    <!-- প্রথম মেসেজ -->
+    <div class="msg bot">স্বাগতম! আমি আপনার সহায়ক চ্যাটবট। কিভাবে আমি আপনার সহায়তা করতে পারি?</div>
+    <div class="msg bot">যেকোনো একটি নির্বাচন করুন</div>
+    
+    <!-- FAQ Options -->
+    <div id="faqOptions">
+      <button class="faq-btn" onclick="selectFAQ('Land Ratio Calculator কীভাবে কাজ করে?')">Land Ratio Calculator কীভাবে কাজ করে?</button>
+      <button class="faq-btn" onclick="selectFAQ('এটি কি নামজারির কাজে ব্যবহারযোগ্য?')">এটি কি নামজারির কাজে ব্যবহারযোগ্য?</button>
+      <button class="faq-btn" onclick="selectFAQ('এটি কি মোবাইলে ব্যবহার করা যাবে?')">এটি কি মোবাইলে ব্যবহার করা যাবে?</button>
+    </div>
   </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Write your message here...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
   <footer class="footer">
     © Abdulla AL Fahad Prince. Member Of GMT 
   </footer>
@@ -256,6 +352,48 @@
     totalLandEl.addEventListener("input", calculate);
     personPortionEl.addEventListener("input", calculate);
   </script>
+<script>
+  const chatBody = document.getElementById("chatBody");
+  const chatbot = document.getElementById("chatbot");
+  const toggleBtn = document.querySelector(".chat-toggle");
 
+  // FAQ উত্তর
+  const faq = {
+    "Land Ratio Calculator কীভাবে কাজ করে?": "আপনি মোট জমির পরিমাণ এবং ব্যক্তিগত জমির পরিমান দিলে এটি স্বয়ংক্রিয়ভাবে আপনার অংশ নির্ণয় করে।",
+    "এটি কি নামজারির কাজে ব্যবহারযোগ্য?": "হ্যাঁ, নামজারি আবেদন করার আগে এবং আবেদন ফর্ম পূরণ করার সময় জমির অংশ বা ভাগ নির্ণয়ে ব্যবহার করা যাবে।",
+    "এটি কি মোবাইলে ব্যবহার করা যাবে?": "হ্যাঁ, এটি মোবাইল ফ্রেন্ডলি এবং যেকোনো ফোনে ব্যবহার করা যায়।"
+  };
+
+  // বাটন ক্লিক করলে
+  function selectFAQ(questionKey) {
+    addMessage(questionKey, "user");
+    setTimeout(() => {
+      addMessage(faq[questionKey], "bot");
+    }, 500);
+  }
+
+  // ম্যানুয়াল মেসেজ সেন্ড
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    if (input.value.trim() !== "") {
+      addMessage(input.value, "user");
+      input.value = "";
+    }
+  }
+
+  // মেসেজ দেখানোর ফাংশন
+  function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("msg", sender);
+    msg.textContent = text;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  // toggle
+  toggleBtn.onclick = () => {
+    chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+  };
+</script>
 </body>
 </html>
