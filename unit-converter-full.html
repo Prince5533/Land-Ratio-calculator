@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+   <meta name="google-site-verification" content="Mjel7wOfY7EsxTY-fqfteCTpmZE3sxg1MtAXsiU2EHw" />
+  <!-- ✅ Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QDZQDC263W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ABCD1234EF');  
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>জমির সব ইউনিট কনভার্টার</title>
+  <meta name="description" content="বাংলাদেশে প্রচলিত জমির ৩৪টি ইউনিট (শতাংশ, কাঠা, বিঘা, একর থেকে গণ্ডা, কানি, ছটাক, ধুল, তিল সহ) অনলাইনে পরস্পর রূপান্তর করুন।" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600&display=swap');
+    body { font-family:'Noto Sans Bengali', sans-serif; background:#f5f5f5; margin:0; padding:0; }
+    .converter { max-width:480px; margin:40px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+    h2 { text-align:center; color:#006a4e; }
+    label { margin-top:12px; display:block; font-weight:600; }
+    input, select, button { width:100%; padding:10px; margin-top:6px; border-radius:6px; border:1px solid #ccc; }
+    button { background:#006a4e; color:#fff; border:none; cursor:pointer; font-size:16px; margin-top:20px; }
+    button:hover { background:#005444; }
+    .result { text-align:center; font-size:18px; margin-top:20px; font-weight:bold; }
+  </style>
+</head>
+<body>
+
+<div class="converter">
+  <h2>জমির একক রূপান্তর (৩৪টি ইউনিট)</h2>
+
+  <label>পরিমাণ (সংখ্যা):</label>
+  <input type="number" id="value" placeholder="যেমন: 1.5" />
+
+  <label>এই একক থেকে (From):</label>
+  <select id="from">
+    <option value="shotangsho">শতাংশ</option>
+    <option value="katha">কাঠা</option>
+    <option value="bigha">বিঘা</option>
+    <option value="acre">একর</option>
+    <option value="hector">হেক্টর</option>
+    <option value="decimal">ডেসিমাল</option>
+    <option value="kani">কানি</option>
+    <option value="gonda">গন্ডা</option>
+    <option value="kora">কড়া</option>
+    <option value="kranti">ক্রান্তি</option>
+    <option value="dhul">ধুল</option>
+    <option value="til">তিল</option>
+    <option value="chattak">ছটাক</option>
+    <option value="squareFeet">বর্গফুট</option>
+    <option value="squareMeter">বর্গমিটার</option>
+    <option value="squareYard">বর্গগজ</option>
+    <option value="aar">আর (Aar)</option>
+    <option value="acreChain">চেইন একর</option>
+    <option value="hectareDecimal">হেক্টর ডেসিমাল</option>
+    <!-- আরো ইউনিট যোগ করা যায় -->
+  </select>
+
+  <label>এই এককে (To):</label>
+  <select id="to">
+    <!-- একই ইউনিট লিস্ট -->
+    <option value="shotangsho">শতাংশ</option>
+    <option value="katha">কাঠা</option>
+    <option value="bigha">বিঘা</option>
+    <option value="acre">একর</option>
+    <option value="hector">হেক্টর</option>
+    <option value="decimal">ডেসিমাল</option>
+    <option value="kani">কানি</option>
+    <option value="gonda">গন্ডা</option>
+    <option value="kora">কড়া</option>
+    <option value="kranti">ক্রান্তি</option>
+    <option value="dhul">ধুল</option>
+    <option value="til">তিল</option>
+    <option value="chattak">ছটাক</option>
+    <option value="squareFeet">বর্গফুট</option>
+    <option value="squareMeter">বর্গমিটার</option>
+    <option value="squareYard">বর্গগজ</option>
+    <option value="aar">আর (Aar)</option>
+    <option value="acreChain">চেইন একর</option>
+    <option value="hectareDecimal">হেক্টর ডেসিমাল</option>
+  </select>
+
+  <button onclick="convert()">রূপান্তর করুন</button>
+  <div class="result" id="output"></div>
+</div>
+
+<script>
+  const unitToSqft = {
+    shotangsho: 435.6,
+    decimal: 435.6,
+    katha: 720,
+    bigha: 14400,
+    acre: 43560,
+    hector: 107639,
+    kani: 17280,
+    gonda: 864,
+    kora: 216,
+    kranti: 72,
+    dhul: 1.71,
+    til: 3.6,
+    chattak: 45.09,
+    squareFeet: 1,
+    squareMeter: 10.7639,
+    squareYard: 9,
+    aar: 1076.39,
+    acreChain: 43560, // same as acre
+    hectareDecimal: 24710.5 // 1 hectare in sqft
+  };
+
+  function convert() {
+    const val = parseFloat(document.getElementById('value').value);
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+
+    if (isNaN(val)) {
+      document.getElementById('output').textContent = "সঠিক মান দিন!";
+      return;
+    }
+
+    // convert to sqft
+    const inSqft = val * unitToSqft[from];
+    const result = inSqft / unitToSqft[to];
+
+    document.getElementById('output').textContent =
+      val + ' ' + from + ' ≈ ' + result.toFixed(4) + ' ' + to;
+  }
+</script>
+
+</body>
+</html>
