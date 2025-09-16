@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কর্মদিবস ক্যালকুলেটর (Working Days Calculator)</title>
+  <meta name="description" content="বাংলাদেশের সরকারি ছুটি বাদ দিয়ে কার্যদিবস (Working Days) হিসাব করার ক্যালকুলেটর। সহজে শুরু এবং শেষ তারিখ অনুযায়ী কার্যদিবস গণনা করুন।">
+  <meta name="keywords" content="কর্মদিবস, working days, ছুটি, বাংলাদেশ, হিসাব, government holidays">
+  <meta name="author" content="Abdulla AL Fahad Prince">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="কর্মদিবস ক্যালকুলেটর (Working Days Calculator)">
+  <meta property="og:description" content="বাংলাদেশের সরকারি ছুটি বাদ দিয়ে কার্যদিবস হিসাব করার সহজ ক্যালকুলেটর।">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prince5533.github.io/Land-Ratio-calculator/">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="কর্মদিবস ক্যালকুলেটর (Working Days Calculator)">
+  <meta name="twitter:description" content="বাংলাদেশের সরকারি ছুটি বাদ দিয়ে কার্যদিবস হিসাব করার সহজ ক্যালকুলেটর।">
+
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 20px 0 120px 0; /* ফুটারের জন্য নিচে বেশি padding */
+    }
+    h1 {
+      text-align: center;
+      color: #006a4e;
+      font-size: 24px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #006a4e;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #004d39;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      word-wrap: break-word;
+    }
+    .summary {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 16px;
+      color: #444;
+      word-wrap: break-word;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #006a4e;
+      color: white;
+    }
+    .holiday-row {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .weekend-row {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    /* Fixed and Responsive Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #006a4e;
+      color: #fff;
+      text-align: center;
+      padding: 12px 10px;
+      font-size: 14px;
+      z-index: 999;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    footer a {
+      color: #ffd700;
+      margin: 0 5px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile Friendly Adjustments */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 20px;
+      }
+      input, button {
+        font-size: 14px;
+      }
+      .result, .summary {
+        font-size: 15px;
+      }
+      footer {
+        font-size: 13px;
+      }
+      footer a {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>কর্মদিবস ক্যালকুলেটর</h1>
+  <div class="container">
+    <label>শুরু তারিখ (Start Date):</label>
+    <input type="date" id="startDate">
+
+    <label>শেষ তারিখ (End Date):</label>
+    <input type="date" id="endDate">
+
+    <button onclick="calculateWorkingDays()">হিসাব করুন</button>
+
+    <div class="result" id="result"></div>
+    <div class="summary" id="summary"></div>
+
+    <table id="holidayTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>তারিখ</th>
+          <th>কারণ</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script>
+  const holidays = {
+    "2025-02-15": "Shab e-Barat",
+    "2025-02-21": "Shaheed Day",
+    "2025-03-26": "Independence Day",
+    "2025-03-27": "Laylat al-Qadr",
+    "2025-03-28": "Jumatul Bidah",
+    "2025-03-29": "Eid ul-Fitr Holiday",
+    "2025-03-30": "Eid ul-Fitr Holiday",
+    "2025-03-31": "Eid ul-Fitr",
+    "2025-04-01": "Eid ul-Fitr Holiday",
+    "2025-04-02": "Eid ul-Fitr Holiday",
+    "2025-04-14": "Bengali New Year",
+    "2025-05-01": "May Day",
+    "2025-05-11": "Buddha Purnima",
+    "2025-06-05": "Eid ul-Adha Holiday",
+    "2025-06-06": "Eid ul-Adha Holiday",
+    "2025-06-07": "Eid ul-Adha",
+    "2025-06-08": "Eid ul-Adha Holiday",
+    "2025-06-09": "Eid ul-Adha Holiday",
+    "2025-06-10": "Eid ul-Adha Holiday",
+    "2025-07-06": "Ashura",
+    "2025-08-15": "National Mourning Day",
+    "2025-08-16": "Shuba Janmashtami",
+    "2025-09-05": "Eid-e-Milad un-Nabi",
+    "2025-10-02": "Vijaya Dashami",
+    "2025-12-16": "Victory Day",
+    "2025-12-25": "Christmas Day"
+  };
+
+  function calculateWorkingDays() {
+    const startDate = new Date(document.getElementById("startDate").value);
+    const endDate = new Date(document.getElementById("endDate").value);
+
+    if (isNaN(startDate) || isNaN(endDate)) {
+      document.getElementById("result").textContent = "⚠️ অনুগ্রহ করে শুরু এবং শেষ তারিখ দিন।";
+      return;
+    }
+
+    if (endDate < startDate) {
+      document.getElementById("result").textContent = "⚠️ শেষ তারিখ শুরু তারিখের আগে হতে পারবে না।";
+      return;
+    }
+
+    let workingDays = 0;
+    let holidayCount = 0;
+    let weekendCount = 0;
+    let currentDate = new Date(startDate);
+
+    const tbody = document.querySelector("#holidayTable tbody");
+    tbody.innerHTML = "";
+
+    while (currentDate <= endDate) {
+      const day = currentDate.getDay();
+      const dateStr = currentDate.toISOString().split("T")[0];
+
+      if (day !== 5 && day !== 6 && !(dateStr in holidays)) {
+        workingDays++;
+      } else {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${dateStr}</td><td>${
+          holidays[dateStr] || (day === 5 ? "Friday (Weekend)" : "Saturday (Weekend)")
+        }</td>`;
+        row.classList.add(dateStr in holidays ? "holiday-row" : "weekend-row");
+        tbody.appendChild(row);
+
+        if (dateStr in holidays) holidayCount++;
+        else weekendCount++;
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    const totalCalendarDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    document.getElementById("result").textContent =
+      `✅ ${startDate.toISOString().split("T")[0]} থেকে ${endDate.toISOString().split("T")[0]} পর্যন্ত কার্যদিবস: ${workingDays} দিন`;
+
+    document.getElementById("summary").textContent =
+      `📌 মোট calendar দিন: ${totalCalendarDays} | 📌 মোট সরকারি ছুটি: ${holidayCount} দিন | 📌 মোট সাপ্তাহিক ছুটি (শুক্র+শনি): ${weekendCount} দিন`;
+
+    document.getElementById("holidayTable").style.display = "table";
+  }
+</script>
+
+<!-- Fixed Responsive Footer -->
+<footer>
+  © Abdulla AL Fahad Prince · Working Days Calculator |
+  <a href="index.html">হোম</a> |
+  <a href="blog.html">ব্লগ</a> |
+  <a href="about.html">About</a>
+</footer>
+
+</body>
+</html>
