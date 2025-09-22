@@ -210,6 +210,27 @@
     squareFeet: 1, squareMeter: 10.7639, squareYard: 9, aar: 1076.39
   };
 
+  // ✅ বাংলা নামের ডিকশনারি
+  const unitNames = {
+    shotangsho: "শতাংশ",
+    decimal: "ডেসিমাল",
+    katha: "কাঠা",
+    bigha: "বিঘা",
+    acre: "একর",
+    hector: "হেক্টর",
+    kani: "কানি",
+    gonda: "গন্ডা",
+    kora: "কড়া",
+    kranti: "ক্রান্তি",
+    dhul: "ধুল",
+    til: "তিল",
+    chattak: "ছটাক",
+    squareFeet: "বর্গফুট",
+    squareMeter: "বর্গমিটার",
+    squareYard: "বর্গগজ",
+    aar: "আর (Aar)"
+  };
+
   function convert() {
     const val = parseFloat(document.getElementById('value').value);
     const from = document.getElementById('from').value;
@@ -221,7 +242,10 @@
     }
     const inSqft = val * unitToSqft[from];
     const result = inSqft / unitToSqft[to];
-    document.getElementById('output').textContent = val + ' ' + from + ' ≈ ' + result.toFixed(4) + ' ' + to;
+
+    // ✅ আউটপুটে বাংলা নাম ব্যবহার করা হচ্ছে
+    document.getElementById('output').textContent =
+      val + ' ' + unitNames[from] + ' ≈ ' + result.toFixed(4) + ' ' + unitNames[to];
   }
 
   document.getElementById('value').addEventListener("input", convert);
@@ -238,4 +262,4 @@
   </div>
 </footer>
 </body>
-</html>
+      </html>
