@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GMT - Presentation Slideshow</title>
 
-  <!-- SwiperJS CDN (for smooth modern slider) -->
+  <!-- SwiperJS CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <style>
     :root{
@@ -15,136 +15,33 @@
       --bg:#f5f7fa;
       --card:#ffffff;
     }
-    body{
-      margin:0;
-      font-family: "Hind Siliguri", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:#111;
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap{
-      max-width:1100px;
-      margin:28px auto;
-      padding:18px;
-    }
+    body{margin:0;font-family:"Hind Siliguri",system-ui;-webkit-font-smoothing:antialiased;background:var(--bg);}
+    .wrap{max-width:1100px;margin:28px auto;padding:18px;}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+    header img{width:56px;height:56px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+    header h1{font-size:1.2rem;margin:0;}
+    header p{margin:0;color:#555;font-size:0.95rem;}
 
-    header{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:18px;
-    }
-    header img{ width:56px; height:56px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
-    header h1{ font-size:1.2rem; margin:0; }
-    header p{ margin:0; color:#555; font-size:0.95rem; }
-
-    /* Card */
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      padding:12px;
-      box-shadow:0 8px 30px rgba(23,23,23,0.06);
-    }
-
-    /* Main big slider */
-    .swiper {
-      width:100%;
-      height: min(70vh, 780px);
-      border-radius:10px;
-      overflow:hidden;
-      background:linear-gradient(180deg,#eef6f2,#fff);
-      position:relative;
-    }
-    .swiper-slide{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .slide-img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      user-select:none;
-      -webkit-user-drag:none;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.12));
-      background:#fff;
-    }
-
-    /* caption */
-    .caption {
-      position:absolute;
-      left:18px;
-      bottom:18px;
-      background:rgba(0,0,0,0.6);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:8px;
-      font-size:0.95rem;
-      backdrop-filter: blur(4px);
-    }
-
-    /* navigation buttons */
-    .swiper-button-next, .swiper-button-prev{
-      color:var(--accent);
-      --tw-ring-color: rgba(0,0,0,0.06);
-    }
-
-    /* thumbnails row */
-    .thumbs {
-      margin-top:12px;
-      display:flex;
-      gap:8px;
-      overflow-x:auto;
-      padding:8px 4px;
-    }
-    .thumbs img{
-      width:140px;
-      height:78px;
-      object-fit:cover;
-      border-radius:8px;
-      cursor:pointer;
-      opacity:0.85;
-      border:2px solid transparent;
-      transition: transform .18s ease, border-color .12s ease, opacity .12s ease;
-    }
-    .thumbs img:hover{ transform: translateY(-4px); opacity:1; }
-    .thumbs img.active{ border-color:var(--accent); opacity:1; }
-
-    /* controls */
-    .controls{
-      display:flex;
-      gap:8px;
-      margin-top:12px;
-      align-items:center;
-    }
-    .controls button{
-      border: none;
-      padding:9px 12px;
-      border-radius:8px;
-      background:var(--accent);
-      color:#fff;
-      cursor:pointer;
-      font-weight:600;
-    }
-    .controls .secondary{
-      background:#fff;
-      color:var(--accent);
-      border:1px solid #e6e6e6;
-    }
-
-    /* responsive */
-    @media (max-width:640px){
-      .thumbs img{ width:110px; height:60px; }
-      .swiper { height:55vh; }
-      header h1{ font-size:1rem; }
-    }
+    .card{background:var(--card);border-radius:14px;padding:12px;box-shadow:0 8px 30px rgba(23,23,23,0.06);}
+    .swiper{width:100%;height:min(70vh,780px);border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#eef6f2,#fff);}
+    .swiper-slide{display:flex;align-items:center;justify-content:center;}
+    .slide-img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none;background:#fff;}
+    .caption{position:absolute;left:18px;bottom:18px;background:rgba(0,0,0,0.6);color:#fff;padding:8px 12px;border-radius:8px;font-size:0.95rem;}
+    .swiper-button-next,.swiper-button-prev{color:var(--accent);}
+    .thumbs{margin-top:12px;display:flex;gap:8px;overflow-x:auto;padding:8px 4px;}
+    .thumbs img{width:140px;height:78px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:0.85;border:2px solid transparent;transition:all .18s;}
+    .thumbs img:hover{transform:translateY(-4px);opacity:1;}
+    .thumbs img.active{border-color:var(--accent);opacity:1;}
+    .controls{display:flex;gap:8px;margin-top:12px;align-items:center;}
+    .controls button{border:none;padding:9px 12px;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;font-weight:600;}
+    .controls .secondary{background:#fff;color:var(--accent);border:1px solid #e6e6e6;}
+    @media(max-width:640px){.thumbs img{width:110px;height:60px}.swiper{height:55vh}header h1{font-size:1rem}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <img src="Gemini_Generated_Image_79smux79smux79sm.png" alt="logo">
+      <img src="../Gemini_Generated_Image_79smux79smux79sm.png" alt="logo">
       <div>
         <h1>GMT — অভিযোগ ব্যবস্থাপনা টিম (Presentation)</h1>
         <p>Slide viewer — স্ক্রল করে দেখুন বা autoplay চালু করুন</p>
@@ -155,21 +52,21 @@
       <!-- Swiper main -->
       <div class="swiper main-swiper">
         <div class="swiper-wrapper">
-          <!-- Replace/add slide images as slide1.png, slide2.png ... -->
-          <div class="swiper-slide">
-            <img class="slide-img" data-src="slide1.png" alt="Slide 1" loading="lazy" />
-          </div>
-          <div class="swiper-slide">
-            <img class="slide-img" data-src="slide2.png" alt="Slide 2" loading="lazy" />
-          </div>
-          <div class="swiper-slide">
-            <img class="slide-img" data-src="slide3.png" alt="Slide 3" loading="lazy" />
-          </div>
-          <!-- Add more slides as needed -->
+          <!-- সব Slide এখানে -->
+          <div class="swiper-slide"><img class="slide-img" src="Slide1.PNG" alt="Slide 1"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide2.PNG" alt="Slide 2"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide3.PNG" alt="Slide 3"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide4.PNG" alt="Slide 4"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide5.PNG" alt="Slide 5"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide6.PNG" alt="Slide 6"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide7.PNG" alt="Slide 7"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide8.PNG" alt="Slide 8"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide9.PNG" alt="Slide 9"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide10.PNG" alt="Slide 10"></div>
+          <div class="swiper-slide"><img class="slide-img" src="Slide11.PNG" alt="Slide 11"></div>
         </div>
 
-        <!-- navigation -->
-        <div class="caption" id="slideCaption">Slide 1 / 3</div>
+        <div class="caption" id="slideCaption">Slide 1 / 11</div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
@@ -177,9 +74,17 @@
 
       <!-- thumbnails -->
       <div class="thumbs" id="thumbs">
-        <img data-index="0" src="slide1.png" alt="Thumb 1" />
-        <img data-index="1" src="slide2.png" alt="Thumb 2" />
-        <img data-index="2" src="slide3.png" alt="Thumb 3" />
+        <img data-index="0" src="Slide1.PNG" alt="Thumb 1">
+        <img data-index="1" src="Slide2.PNG" alt="Thumb 2">
+        <img data-index="2" src="Slide3.PNG" alt="Thumb 3">
+        <img data-index="3" src="Slide4.PNG" alt="Thumb 4">
+        <img data-index="4" src="Slide5.PNG" alt="Thumb 5">
+        <img data-index="5" src="Slide6.PNG" alt="Thumb 6">
+        <img data-index="6" src="Slide7.PNG" alt="Thumb 7">
+        <img data-index="7" src="Slide8.PNG" alt="Thumb 8">
+        <img data-index="8" src="Slide9.PNG" alt="Thumb 9">
+        <img data-index="9" src="Slide10.PNG" alt="Thumb 10">
+        <img data-index="10" src="Slide11.PNG" alt="Thumb 11">
       </div>
 
       <div class="controls">
@@ -193,120 +98,61 @@
   <!-- SwiperJS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script>
-    // --- Lazy-load slide images (so page loads fast) ---
-    function lazyLoadSlideImages() {
-      document.querySelectorAll('.slide-img').forEach(img=>{
-        const src = img.getAttribute('data-src');
-        if(src){
-          img.src = src;
-          img.removeAttribute('data-src');
-        }
-      });
-    }
-
-    lazyLoadSlideImages();
-
-    // --- Initialize Swiper ---
     const mainSwiper = new Swiper('.main-swiper', {
-      loop: false,
-      spaceBetween: 18,
-      centeredSlides: true,
-      slidesPerView: 1,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      },
-      keyboard: { enabled: true },
-      effect: 'fade', // beautiful fade effect
-      fadeEffect: { crossFade: true },
-      on: {
-        slideChange: function(){
-          updateCaption();
-          highlightThumb(this.activeIndex);
-        }
-      }
+      loop:false,
+      spaceBetween:18,
+      centeredSlides:true,
+      slidesPerView:1,
+      navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},
+      pagination:{el:'.swiper-pagination',clickable:true},
+      keyboard:{enabled:true},
+      effect:'fade',fadeEffect:{crossFade:true},
+      on:{slideChange:function(){updateCaption();highlightThumb(this.activeIndex);}}
     });
 
-    // caption
     function updateCaption(){
-      const idx = mainSwiper.activeIndex + 1;
-      const total = mainSwiper.slides.length;
-      document.getElementById('slideCaption').textContent = `Slide ${idx} / ${total}`;
+      const idx=mainSwiper.activeIndex+1;
+      const total=mainSwiper.slides.length;
+      document.getElementById('slideCaption').textContent=`Slide ${idx} / ${total}`;
     }
     updateCaption();
 
-    // thumbs click
     document.getElementById('thumbs').addEventListener('click', e=>{
-      const img = e.target.closest('img');
-      if(!img) return;
-      const i = Number(img.dataset.index || 0);
-      mainSwiper.slideTo(i);
+      const img=e.target.closest('img'); if(!img) return;
+      mainSwiper.slideTo(Number(img.dataset.index||0));
     });
 
     function highlightThumb(activeIndex){
-      document.querySelectorAll('#thumbs img').forEach((t,i)=>{
-        t.classList.toggle('active', i === activeIndex);
-      });
+      document.querySelectorAll('#thumbs img').forEach((t,i)=>t.classList.toggle('active', i===activeIndex));
     }
     highlightThumb(0);
 
-    // autoplay toggle
-    let autoplayOn = false;
-    const autoplayBtn = document.getElementById('autoplayToggle');
+    let autoplayOn=false;
+    const autoplayBtn=document.getElementById('autoplayToggle');
     autoplayBtn.addEventListener('click', ()=>{
       if(!autoplayOn){
-        mainSwiper.params.autoplay = { delay: 4500, disableOnInteraction: false };
-        mainSwiper.autoplay.start();
-        autoplayBtn.textContent = 'Pause ⏸';
-        autoplayOn = true;
+        mainSwiper.params.autoplay={delay:4500,disableOnInteraction:false};
+        mainSwiper.autoplay.start(); autoplayBtn.textContent='Pause ⏸'; autoplayOn=true;
       } else {
-        mainSwiper.autoplay.stop();
-        autoplayBtn.textContent = 'Play ▶';
-        autoplayOn = false;
+        mainSwiper.autoplay.stop(); autoplayBtn.textContent='Play ▶'; autoplayOn=false;
       }
     });
 
-    // fit toggle - contain / cover
-    const fitBtn = document.getElementById('fitToggle');
-    let isContain = true;
+    const fitBtn=document.getElementById('fitToggle');
+    let isContain=true;
     fitBtn.addEventListener('click', ()=>{
       document.querySelectorAll('.slide-img').forEach(img=>{
-        img.style.objectFit = isContain ? 'cover' : 'contain';
+        img.style.objectFit=isContain?'cover':'contain';
       });
-      isContain = !isContain;
-      fitBtn.textContent = isContain ? 'Fit: contain' : 'Fit: cover';
+      isContain=!isContain;
+      fitBtn.textContent=isContain?'Fit: contain':'Fit: cover';
     });
 
-    // download ppt (link to actual file) — replace href as needed
     document.getElementById('downloadBtn').addEventListener('click', ()=>{
-      // If you host .pptx on same server, put link to file
-      const pptPath = 'ভূমি_মন্ত্রণালয় GMT PPT.pptx';
-      const a = document.createElement('a');
-      a.href = pptPath;
-      a.download = pptPath;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+      const pptPath='ভূমি_মন্ত্রণালয় GMT PPT.pptx';
+      const a=document.createElement('a'); a.href=pptPath; a.download=pptPath;
+      document.body.appendChild(a); a.click(); a.remove();
     });
-
-    // accessibility: click thumbnails to navigate via keyboard
-    document.querySelectorAll('#thumbs img').forEach((t, i)=>{
-      t.tabIndex = 0;
-      t.addEventListener('keypress', (e)=>{
-        if(e.key === 'Enter') mainSwiper.slideTo(i);
-      });
-    });
-
-    // lazy fallback if images not found: show message
-    window.addEventListener('error', (ev)=>{
-      if(ev.target.tagName === 'IMG'){
-        ev.target.style.opacity = 0.35;
-      }
-    }, true);
   </script>
 </body>
 </html>
