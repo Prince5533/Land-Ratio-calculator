@@ -16,16 +16,28 @@
       flex-direction: column;
       padding: 15px;
     }
-     footer {
-  position: fixed;
-  bottom: 10px; /* এটি ফুটারকে নিচের দিক থেকে 10 পিক্সেল উপরে রাখবে */
-  right: 10px; /* এটি ফুটারকে ডান দিক থেকে 10 পিক্সেল দূরে রাখবে */
-  font-size: 14px;
-  color: #333;
-  background: rgba(255,255,255,0.7);
-  padding: 4px 8px;
-  border-radius: 5px;
-  text-align: center;
+        footer{
+      margin-top:40px;
+      background:#f1f5f9;
+      padding:14px;
+      font-size:14px;
+      text-align:center;
+      color:#475569;
+      position: fixed;
+    }
+    .link-row{display:flex;justify-content:center;gap:12px;margin-top:8px}
+    .chip{
+      background:#fff;border:1px solid #cbd5e1;border-radius:999px;
+      padding:6px 12px;font-weight:600;color:#0f172a;text-decoration:none;
+      transition:.2s;
+    }
+    .chip:hover{background:#009688;color:#fff;border-color:#009688}
+    .logo {
+      display:block; width:140px;
+      margin:25px auto 10px;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    }
      }
         .logo {
       position: relative;
@@ -113,9 +125,15 @@
     <h3>এটি কি মোবাইলে ব্যবহার করা যাবে?</h3>
     <p>হ্যাঁ, এটি মোবাইল ফ্রেন্ডলি এবং যেকোনো ফোনে ব্যবহার করা যায়।</p>
   </div>
-    <footer class="footer">
-    © Abdulla AL Fahad Prince. Member Of GMT 
-  </footer>
+    
+<footer>
+  <div>© 2025 Abdulla AL Fahad Prince · জমির অংশ থেকে পরিমাণ নির্ণয়</div>
+  <div class="link-row">
+    <a class="chip" href="landing.html">হোম পেইজ</a>
+    <a class="chip" href="Land-measurement.html">অংশ থেকে পরিমাণ</a>
+    <a class="chip" href="blog.html">ব্লগ / জ্ঞানভান্ডার</a>
+  </div>
+</footer>
 
   <script>
     const totalLandEl = document.getElementById("totalLand");
