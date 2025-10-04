@@ -16,27 +16,18 @@
       flex-direction: column;
       padding: 15px;
     }
-        footer{
-      margin-top:40px;
-      background:#f1f5f9;
-      padding:14px;
-      font-size:14px;
-      text-align:center;
-      color:#475569;
-
+      footer{
+      position:sticky; bottom:0; background:rgba(255,255,255,.85);
+      border-top:1px solid var(--border)
     }
-    .link-row{display:flex;justify-content:center;gap:12px;margin-top:8px}
+    .foot{
+      max-width:960px; margin:0 auto; padding:12px 16px; font-size:13px; color:#334155;
+      display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center;
+    }
+    .link-row{display:flex; gap:8px; flex-wrap:wrap}
     .chip{
-      background:#fff;border:1px solid #cbd5e1;border-radius:999px;
-      padding:6px 12px;font-weight:600;color:#0f172a;text-decoration:none;
-      transition:.2s;
-    }
-    .chip:hover{background:#009688;color:#fff;border-color:#009688}
-    .logo {
-      display:block; width:140px;
-      margin:25px auto 10px;
-      border-radius:10px;
-      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+      background:#fff; border:1px solid var(--border); border-radius:999px;
+      padding:6px 10px; font-weight:600; color:#0f172a; text-decoration:none;
     }
      }
         .logo {
@@ -127,12 +118,14 @@
   </div>
     
 <footer>
-  <div>© 2025 Abdulla AL Fahad Prince · জমির অংশ থেকে পরিমাণ নির্ণয়</div>
-  <div class="link-row">
-    <a class="chip" href="landing.html">হোম পেইজ</a>
-    <a class="chip" href="Land-measurement.html">অংশ থেকে পরিমাণ</a>
-    <a class="chip" href="blog.html">ব্লগ / জ্ঞানভান্ডার</a>
-  </div>
+    <div class="foot">
+      <div>© Abdulla AL Fahad Prince · জমির অংশ থেকে পরিমাণ নির্ণয়</div>
+      <div class="link-row">
+        <a class="chip" href="landing.html">হোম পেইজ</a>
+        <a class="chip" href="index.html">নামজারির অংশ নির্ণয়</a>
+        <a class="chip" href="Land-measurement.html">অংশ থেকে পরিমাণ নির্ণয়</a>
+        <a class="chip" href="working-days.html">কর্মদিবস ক্যালকুলেটর</a>
+      </div>
 </footer>
 
   <script>
