@@ -136,15 +136,22 @@
     }
     /* Hero */
    /* Hero */
+/* Hero */
 .hero {
   background: url("land image.png") no-repeat center center/cover;
   color: white;
   text-align: center;
-  padding: 90px 20px 70px;
+  height: 100vh;         /* পুরো স্ক্রিনের উচ্চতা */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  padding: 0 20px;       /* শুধু সাইডে padding */
+  box-sizing: border-box;
 }
 
-/* optional: dark overlay for better text visibility */
+/* overlay (optional for text clarity) */
 .hero::before {
   content: "";
   position: absolute;
